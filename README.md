@@ -2,6 +2,27 @@
 
 Flake-based NixOS configuration for a ThinkPad (AMD) running Hyprland on the unstable channel.
 
+## Desktop Workflow
+
+The daily-driver setup is a keyboard-driven, terminal-native workflow on Wayland.
+
+| Component    | Role                                                  |
+|--------------|-------------------------------------------------------|
+| **Hyprland** | Tiling Wayland compositor (`programs.hyprland.enable` in `desktop.nix`, keybinds and env vars in `home.nix`). Displays power off on lid close via `hyprctl dispatch dpms off` and turn back on when reopened. |
+| **Noctalia** | A toolkit/app from `github:noctalia-dev/noctalia` — installed via the flake input and bundled into `home.packages`. |
+| **Kitty**    | GPU-accelerated terminal emulator. The primary terminal for shell, editors, and multiplexers. |
+| **Neovim**   | Modal editor (installed via `home.packages`). Used as the main code editor alongside LSP tooling (`terraform-ls`, `lua`, `luarocks`). |
+| **Zellij**   | Terminal multiplexer with a native UI (tabs, panes, status bar). Replaces tmux for session management inside Kitty. |
+| **tmux**     | Available system-wide (`environment.systemPackages`) as a fallback multiplexer. |
+| **Starship** | Cross-shell prompt with Git-aware indicators — styled for zsh. |
+| **ly**       | Console-based display manager with a colormix animation — launches Hyprland after login. |
+
+This stack keeps everything on Wayland: Hyprland → Kitty → Zellij → Neovim, with Noctalia providing additional desktop utilities.
+
+## Dotfiles
+
+Configuration files for the apps above (Hyprland, Kitty, Neovim, Zellij, etc.) are managed separately in [l4cloud/dotfiles](https://github.com/l4cloud/dotfiles) and linked into `$HOME` via [GNU Stow](https://www.gnu.org/software/stow/). Home-manager handles **package installation** in this repo; `stow` handles the **config files** in the dotfiles repo. The two are designed to be used together — clone the dotfiles and run `stow .` to complete the setup.
+
 ## Structure
 
 ```
