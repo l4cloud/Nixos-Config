@@ -101,16 +101,14 @@ nixos-rebuild build --flake /etc/nixos
 
 ### Lid & Power Management
 
-When the laptop lid is **closed**:
+Lid-close behavior depends on power state:
 
-1. Hyprland turns off the displays via `dpms off`
-2. A udev rule detects the lid-close event and starts a systemd timer
+| State               | Behavior                                              |
+|---------------------|-------------------------------------------------------|
+| On battery          | System suspends                                       |
+| Plugged in / docked | Laptop screen (eDP-1) disables; external monitors stay active |
 
-If the lid stays closed for **30 minutes** (and the laptop is on battery):
-
-3. The system powers off automatically
-
-The 30-minute shutdown timer is **cancelled** if the lid is reopened before the time elapses. This behavior is defined in `desktop.nix`.
+Logind handles the suspend-on-battery logic (`desktop.nix`). Hyprland disables/enables the internal display on lid events (`home.nix`).
 
 Additionally:
 

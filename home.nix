@@ -68,15 +68,12 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    bindl = [
-      "switch:on:Lid Switch, exec, hyprctl dispatch dpms off"
-      "switch:off:Lid Switch, exec, hyprctl dispatch dpms on"
-    ];
     env = [
       "QT_QPA_PLATFORMTHEME,qt6ct"
       "VK_ICD_FILENAMES,/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json"
       "LIBVA_DRIVER_NAME,radeonsi"
       "LIBVA_DRIVERS_PATH,/run/opengl-driver/lib/dri"
+      "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
     ] ;
   };
 
