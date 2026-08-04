@@ -34,6 +34,7 @@
     libreoffice
     inputs.helium.defaultPackage.${pkgs.stdenv.hostPlatform.system}
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    anki
 
 
     # Dev Packages
