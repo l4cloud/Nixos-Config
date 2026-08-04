@@ -12,6 +12,7 @@
     fd
     fzf
     jq
+    toolong
     zellij 
     zsh
     starship
@@ -39,6 +40,7 @@
     gh
     k9s
     neovim
+    typescript
     cargo
     rustc
     nodejs
@@ -49,15 +51,14 @@
     uv
     pipx
     terraform
-    tflint
     awscli2
     azure-cli
     cloudlens
     google-cloud-sdk
     gcc
-    terraform-ls
     opencode
     lazygit
+    unzip
   ];
 
   home.sessionVariables = {
