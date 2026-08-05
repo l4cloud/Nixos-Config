@@ -51,6 +51,7 @@
     python3
     uv
     pipx
+    kubectl
     terraform
     awscli2
     azure-cli
@@ -60,6 +61,20 @@
     opencode
     lazygit
     unzip
+
+    # LSP servers & editor tooling (managed via Nix on NixOS, not mason)
+    gopls
+    python3Packages.python-lsp-server
+    terraform-ls
+    tflint
+    jdt-language-server
+    lua-language-server
+    typescript-language-server
+    vscode-langservers-extracted # eslint + html language servers
+    emmet-language-server
+    bash-language-server
+    yaml-language-server
+    stylua
   ];
 
   home.sessionVariables = {
