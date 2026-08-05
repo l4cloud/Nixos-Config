@@ -52,6 +52,7 @@
     uv
     pipx
     kubectl
+    kubernetes-helm
     terraform
     awscli2
     azure-cli
