@@ -2,6 +2,11 @@
   description = "My nixos setup for my thinkpad";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Official Hyprland flake — deliberately does NOT follow nixpkgs so that
+    # nixpkgs packaging breakage (e.g. the glaze FetchContent bug) can't break Hyprland.
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
     helium = {
       url = "github:FKouhai/helium2nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +21,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, helium, home-manager, noctalia,  ... }@inputs: {
+  outputs = { self, nixpkgs, helium, home-manager, noctalia, hyprland, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
      specialArgs = { inherit inputs; };
 

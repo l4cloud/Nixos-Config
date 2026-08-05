@@ -1,9 +1,12 @@
-{ pkgs, config, lib, ...}:
+{ pkgs, config, lib, inputs, ...}:
 
 {
 
   # DE & DM setup
   programs.hyprland.enable = true;
+  # Use the official Hyprland flake's package instead of nixpkgs' (which
+  # periodically breaks on unstable — e.g. the glaze FetchContent bug).
+  programs.hyprland.package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   services.displayManager.ly.enable = true;
   services.displayManager.ly.settings = {
     animation = "colormix";
