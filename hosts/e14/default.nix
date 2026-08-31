@@ -1,7 +1,8 @@
-{ ... }:
+{ inputs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
     ../../modules/system/boot.nix
     ../../modules/system/locale.nix
     ../../modules/system/network.nix
@@ -19,6 +20,11 @@
     ../../modules/desktop/lid-power.nix
     ../../modules/desktop/misc.nix
   ];
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.lu = import ../../home/lu;
+  home-manager.extraSpecialArgs = { inherit inputs; };
 
   networking.hostName = "e14";
   system.stateVersion = "26.05";
