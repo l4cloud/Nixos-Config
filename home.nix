@@ -20,6 +20,7 @@
     btop
     stow
     kitty
+    jetbrains-mono
     nautilus
     nwg-displays
     adw-gtk3
@@ -35,6 +36,7 @@
     inputs.helium.defaultPackage.${pkgs.stdenv.hostPlatform.system}
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     anki-bin
+    discord-ptb
 
 
     # Dev Packages
@@ -42,6 +44,7 @@
     k9s
     neovim
     typescript
+    supabase-cli
     cargo
     rustc
     nodejs
@@ -53,6 +56,7 @@
     pipx
     kubectl
     kubernetes-helm
+    svelte-language-server
     terraform
     awscli2
     azure-cli
@@ -61,6 +65,8 @@
     gcc
     opencode
     lazygit
+    lazydocker
+    docker
     unzip
 
     # LSP servers & editor tooling (managed via Nix on NixOS, not mason)

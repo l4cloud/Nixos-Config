@@ -47,10 +47,12 @@
   users.users."lu" = {
     isNormalUser = true;
     description = "lu";
-    extraGroups = [ "networkmanager" "wheel" "video" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "render" "docker" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
+
+  virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -74,7 +76,11 @@
      upower
      zsh
      brightnessctl
-      libreoffice
+     libreoffice
+     clang-tools   # Provides clangd
+     clang
+     llvmPackages_latest.libllvm
+     llvmPackages_latest.libcxx 
    ];
 
   # services.openssh.enable = true;
