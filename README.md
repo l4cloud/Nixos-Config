@@ -8,7 +8,7 @@ The daily-driver setup is a keyboard-driven, terminal-native workflow on Wayland
 
 | Component    | Role                                                  |
 |--------------|-------------------------------------------------------|
-| **Hyprland** | Tiling Wayland compositor (`programs.hyprland.enable` in `desktop.nix`, keybinds and env vars in `home.nix`). Displays power off on lid close via `hyprctl dispatch dpms off` and turn back on when reopened. |
+| **Hyprland** | Tiling Wayland compositor (`programs.hyprland.enable` in `modules/desktop/hyprland.nix`, keybinds and env vars in `home/lu/hyprland.nix`). Displays power off on lid close via `hyprctl dispatch dpms off` and turn back on when reopened. |
 | **Noctalia** | A toolkit/app from `github:noctalia-dev/noctalia` — installed via the flake input and bundled into `home.packages`. |
 | **Kitty**    | GPU-accelerated terminal emulator. The primary terminal for shell, editors, and multiplexers. |
 | **Neovim**   | Modal editor (installed via `home.packages`). Used as the main code editor alongside LSP tooling (`terraform-ls`, `lua`, `luarocks`). |
@@ -27,11 +27,25 @@ Configuration files for the apps above (Hyprland, Kitty, Neovim, Zellij, etc.) a
 
 ```
 /etc/nixos/
-├── flake.nix                  Flake entry point (inputs, outputs)
-├── configuration.nix          System-level config (boot, networking, users, systemd)
-├── desktop.nix                DE/WM, audio, Bluetooth, lid management
-├── hardware-configuration.nix Auto-generated hardware setup (disks, kernel modules)
-├── home.nix                   Home-manager config for user `lu` (packages, Hyprland, env)
+├── flake.nix                  Flake entry point (inputs, outputs, formatter)
+├── flake.lock
+├── hosts/
+│   └── e14/                   Per-machine entry point
+│       ├── default.nix        Imports shared modules + hardware config
+│       └── hardware-configuration.nix  Auto-generated hardware setup
+├── modules/
+│   ├── system/                Boot, locale, network, user, packages, nix, displaylink
+│   ├── desktop/               Hyprland, audio, bluetooth, lid-power, graphics, misc
+│   └── services/              Docker, power profile, nixos-owner
+├── home/
+│   └── lu/                    Home-manager config for user `lu`
+│       ├── default.nix
+│       ├── git.nix
+│       ├── hyprland.nix
+│       └── packages/          tools, desktop, dev, lsp
+├── overlays/
+│   └── displaylink.nix
+├── .gitignore
 └── README.md
 ```
 
@@ -56,7 +70,7 @@ nixos-rebuild build --flake /etc/nixos
 
 ### Networking
 
-- **Hostname**: `nixos`
+- **Hostname**: `e14`
 - **Manager**: NetworkManager
 - Wi-Fi, wired, and VPN connections are handled through `nmcli`, `nmtui`, or the GUI applet
 
@@ -108,7 +122,7 @@ Lid-close behavior depends on power state:
 | On battery          | System suspends                                       |
 | Plugged in / docked | Laptop screen (eDP-1) disables; external monitors stay active |
 
-Logind handles the suspend-on-battery logic (`desktop.nix`). Hyprland disables/enables the internal display on lid events (`home.nix`).
+Logind handles the suspend-on-battery logic (`modules/desktop/lid-power.nix`). Hyprland disables/enables the internal display on lid events (`home/lu/hyprland.nix`).
 
 Additionally:
 
