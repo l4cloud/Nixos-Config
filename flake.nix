@@ -32,6 +32,12 @@
       modules = [ ./hosts/e14 ];
     };
 
+    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+
+      modules = [ ./hosts/desktop ];
+    };
+
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
   };
 }

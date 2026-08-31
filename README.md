@@ -1,6 +1,8 @@
 # NixOS Configuration
 
-Flake-based NixOS configuration for a ThinkPad (AMD) running Hyprland on the unstable channel.
+Flake-based NixOS configuration for two machines on the unstable channel:
+- `e14` — ThinkPad (AMD) daily driver, Hyprland.
+- `desktop` — NVIDIA gaming PC, KDE Plasma with a SteamOS-style "game mode".
 
 ## Desktop Workflow
 
@@ -33,6 +35,9 @@ Configuration files for the apps above (Hyprland, Kitty, Neovim, Zellij, etc.) a
 │   └── e14/                   Per-machine entry point
 │       ├── default.nix        Imports shared modules + hardware config
 │       └── hardware-configuration.nix  Auto-generated hardware setup
+│   └── desktop/               Gaming PC entry point
+│       ├── default.nix        Imports shared modules + hardware config
+│       └── hardware-configuration.nix  Placeholder (replace after install)
 ├── modules/
 │   ├── system/                Boot, locale, network, user, packages, nix, displaylink
 │   ├── desktop/               Hyprland, audio, bluetooth, lid-power, graphics, misc
@@ -172,6 +177,21 @@ All inputs follow `nixpkgs` to keep a consistent package set.
 ### Custom Systemd Services
 
 **`nixos-owner.service`** — Runs once at boot to chown `/etc/nixos` to `lu:users` so the config repo is editable without `sudo`.
+
+## Desktop (Gaming)
+
+`desktop` is an NVIDIA gaming box. It boots straight into Steam Big Picture via a
+gamescope session (like SteamOS "game mode"), with KDE Plasma as the fallback desktop.
+
+| Component     | Detail |
+|---------------|--------|
+| Desktop       | KDE Plasma 6 + SDDM (`modules/desktop/kde.nix`) |
+| Game mode     | `programs.steam.gamescopeSession` — boots to Big Picture (`modules/desktop/gaming.nix`) |
+| GPU           | NVIDIA (open kernel module) |
+| Gaming tools  | Steam, GameMode, MangoHud, Proton-GE, protontricks, Lutris, Heroic, Bottles |
+| Browser       | Helium (only home package) |
+
+Apply with: `sudo nixos-rebuild switch --flake /etc/nixos#desktop`
 
 ## Version
 
