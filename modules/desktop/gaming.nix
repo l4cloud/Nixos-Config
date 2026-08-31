@@ -7,16 +7,9 @@
     open = true;
   };
 
-  # Steam + game mode (gamescope Big Picture session).
-  # -bigpicture instead of -tenfoot so Steam keeps a working "Exit Steam"
-  # (returns to SDDM), since -tenfoot replaces it with a "Switch to Desktop
-  # Mode" button that needs a SteamOS session manager we don't have.
+  # Steam (desktop client); Big Picture auto-starts via the home autostart entry
   programs.steam = {
     enable = true;
-    gamescopeSession = {
-      enable = true;
-      steamArgs = [ "-bigpicture" "-pipewire-dmabuf" ];
-    };
     protontricks.enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
@@ -31,8 +24,4 @@
     heroic
     bottles
   ];
-
-  # Steam preselected at the SDDM login screen; no autologin so you can
-  # still pick Plasma (desktop) instead of getting trapped in game mode.
-  services.displayManager.defaultSession = "steam";
 }
