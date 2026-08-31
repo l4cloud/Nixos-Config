@@ -1,0 +1,6 @@
+# Nix build artifacts (symlinks to /nix/store)
+result
+result-*
+
+# Logs
+*.log
