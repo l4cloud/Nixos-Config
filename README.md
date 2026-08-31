@@ -180,13 +180,14 @@ All inputs follow `nixpkgs` to keep a consistent package set.
 
 ## Desktop (Gaming)
 
-`desktop` is an NVIDIA gaming box. It boots straight into Steam Big Picture via a
-gamescope session (like SteamOS "game mode"), with KDE Plasma as the fallback desktop.
+`desktop` is an NVIDIA gaming box. SDDM has **Steam** preselected, so pressing Enter
+at the login screen drops you into a gamescope "game mode" (Steam Big Picture); pick
+**Plasma** instead for the KDE desktop. Exiting Steam returns you to SDDM.
 
 | Component     | Detail |
 |---------------|--------|
 | Desktop       | KDE Plasma 6 + SDDM (`modules/desktop/kde.nix`) |
-| Game mode     | `programs.steam.gamescopeSession` — boots to Big Picture (`modules/desktop/gaming.nix`) |
+| Game mode     | `programs.steam.gamescopeSession` with `-bigpicture` (`modules/desktop/gaming.nix`) |
 | GPU           | NVIDIA (open kernel module) |
 | Gaming tools  | Steam, GameMode, MangoHud, Proton-GE, protontricks, Lutris, Heroic, Bottles |
 | Browser       | Helium (only home package) |
