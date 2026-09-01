@@ -10,15 +10,20 @@
     inputs.helium.defaultPackage.${pkgs.stdenv.hostPlatform.system}
   ];
 
-  # Boot straight into a console-like experience: Steam Big Picture
-  # auto-starts on Plasma login. "Exit Big Picture Mode" returns to the
-  # KDE desktop (which has normal logout).
-  xdg.configFile."autostart/steam-bigpicture.desktop".text = ''
-    [Desktop Entry]
-    Type=Application
-    Name=Steam Big Picture
-    Comment=Launch Steam in Big Picture Mode on login
-    Exec=steam -bigpicture
-    X-KDE-autostart-after=panel
-  '';
+  # MangoHud overlay config. Shows when launched via `mangohud %command%`
+  # (not session-wide, so it stays out of non-game apps).
+  programs.mangohud = {
+    enable = true;
+    settings = {
+      fps = true;
+      frametime = true;
+      gpu_stats = true;
+      cpu_stats = true;
+      gpu_temp = true;
+      cpu_temp = true;
+      vram = true;
+      ram = true;
+      position = "top-left";
+    };
+  };
 }

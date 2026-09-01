@@ -180,16 +180,15 @@ All inputs follow `nixpkgs` to keep a consistent package set.
 
 ## Desktop (Gaming)
 
-`desktop` is an NVIDIA gaming box. It autologs into KDE Plasma, which auto-starts
-Steam Big Picture fullscreen (console-like boot). "Exit Big Picture Mode" drops to
-the KDE desktop with normal logout.
+`desktop` is an NVIDIA gaming box. It autologs into KDE Plasma; launch Steam
+manually from there.
 
 | Component     | Detail |
 |---------------|--------|
 | Desktop       | KDE Plasma 6 + SDDM with autologin (`modules/desktop/kde.nix`) |
-| Boot-to-game  | Steam Big Picture autostarts on Plasma login (`home/lu/desktop.nix`) |
 | GPU           | NVIDIA (open kernel module) |
 | Gaming tools  | Steam, GameMode, MangoHud, Proton-GE, protontricks, Lutris, Heroic, Bottles |
+| Perf tweaks   | performance governor, `vm.max_map_count`, NVIDIA power mgmt, `mitigations=off` |
 | Browser       | Helium (only home package) |
 
 Apply with: `sudo nixos-rebuild switch --flake /etc/nixos#desktop`
