@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
-    ../../modules/system/boot.nix
+    ../../modules/system/boot-grub.nix
     ../../modules/system/locale.nix
     ../../modules/system/network.nix
     ../../modules/system/user.nix
